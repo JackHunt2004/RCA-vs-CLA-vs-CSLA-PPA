@@ -358,3 +358,40 @@ The detailed machine-readable results are stored in:
 ```text
 results/power/power_baseline.csv
 ```
+---
+
+## 13. Baseline PPA Comparison
+
+The baseline area, timing, and power measurements were consolidated to compare the three 32-bit adder architectures under the same technology, synthesis, timing, and power-analysis conditions.
+
+### 13.1 Area and Timing
+
+| Architecture | Cell Count | Area | Maximum Delay (ns) | WNS (ns) |
+|---|---:|---:|---:|---:|
+| RCA | 64 | 1081.0368 | 12.197 | -2.197 |
+| CLA | 116 | 920.8832 | 10.486 | -0.486 |
+| CSLA | 321 | 2499.8976 | 4.644 | +5.356 |
+
+CLA has the lowest synthesized area, while CSLA provides the shortest maximum delay and the largest positive worst negative slack margin. RCA has the smallest mapped cell count but a longer critical-path delay than both CLA and CSLA.
+
+### 13.2 Normalized Baseline Comparison
+
+The following ratios are normalized independently to the best measured value for each metric:
+
+| Architecture | Area | Delay | Low Power | Random Power | High Power |
+|---|---:|---:|---:|---:|---:|
+| RCA | 1.17x | 2.63x | 1.27x | 1.00x | 1.74x |
+| CLA | 1.00x | 2.26x | 1.00x | 1.09x | 1.21x |
+| CSLA | 2.71x | 1.00x | 1.54x | 2.71x | 1.00x |
+
+The normalized results show that no single architecture is best across all measured dimensions.
+
+### 13.3 Baseline Trade-off Summary
+
+- **RCA:** lowest random-workload power, with moderate area but the longest maximum delay.
+- **CLA:** lowest area and lowest low-workload power, while providing better timing than RCA.
+- **CSLA:** substantially lower delay and positive timing margin, but with significantly higher area and workload-dependent power.
+- Power ranking changes with switching workload, demonstrating that workload must be considered when comparing architecture-level power.
+- The baseline results do not identify a universal PPA-optimal architecture.
+
+These results represent the measured baseline implementations. Architectural optimization has not yet been performed.

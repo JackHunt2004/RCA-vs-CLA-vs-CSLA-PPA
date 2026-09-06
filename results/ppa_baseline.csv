@@ -1,0 +1,4 @@
+architecture,width_bits,cell_count,area,max_delay_ns,wns_ns,low_power_w,random_power_w,high_power_w
+rca,32,64,1081.0368,12.197,-2.197,1.486e-07,8.492e-05,1.664e-04
+cla,32,116,920.8832,10.486,-0.486,1.167e-07,9.231e-05,1.156e-04
+csla,32,321,2499.8976,4.644,5.356,1.795e-07,2.299e-04,9.569e-05
