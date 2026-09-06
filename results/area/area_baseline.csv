@@ -1,0 +1,4 @@
+architecture,width_bits,cell_count,area
+rca,32,64,1081.0368
+cla,32,116,920.8832
+csla,32,321,2499.8976

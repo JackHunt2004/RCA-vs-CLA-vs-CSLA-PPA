@@ -1,0 +1,4 @@
+create_clock -name virtual_clk -period 10.0
+
+set_input_delay 0.0 -clock virtual_clk [get_ports {a b cin}]
+set_output_delay 0.0 -clock virtual_clk [get_ports {sum cout}]

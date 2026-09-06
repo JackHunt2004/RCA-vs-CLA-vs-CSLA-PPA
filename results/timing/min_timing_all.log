@@ -1,0 +1,30 @@
+invalid command name "====="
+Startpoint: cin (input port clocked by virtual_clk)
+Endpoint: sum[0] (output port clocked by virtual_clk)
+Path Group: virtual_clk
+Path Type: min
+
+     Cap     Slew    Delay     Time   Description
+---------------------------------------------------------------------------
+            0.000    0.000    0.000   clock virtual_clk (rise edge)
+                     0.000    0.000   clock network delay (ideal)
+                     0.000    0.000 ^ input external delay
+   0.007    0.000    0.000    0.000 ^ cin (in)
+            0.000    0.000    0.000 ^ gen_full_adders[0].fa/_0_/C (sky130_fd_sc_hd__xor3_1)
+   0.000    0.027    0.086    0.086 ^ gen_full_adders[0].fa/_0_/X (sky130_fd_sc_hd__xor3_1)
+            0.027    0.000    0.086 ^ sum[0] (out)
+                              0.086   data arrival time
+
+            0.000    0.000    0.000   clock virtual_clk (rise edge)
+                     0.000    0.000   clock network delay (ideal)
+                     0.000    0.000   clock reconvergence pessimism
+                     0.000    0.000   output external delay
+                              0.000   data required time
+---------------------------------------------------------------------------
+                              0.000   data required time
+                             -0.086   data arrival time
+---------------------------------------------------------------------------
+                              0.086   slack (MET)
+
+
+worst slack min 0.086

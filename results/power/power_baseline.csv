@@ -1,0 +1,10 @@
+architecture,width_bits,workload,internal_power_w,switching_power_w,leakage_power_w,total_power_w
+rca,32,low,1.157e-07,3.246e-08,4.611e-10,1.486e-07
+rca,32,random,6.932e-05,1.560e-05,5.537e-10,8.492e-05
+rca,32,high,1.356e-04,3.085e-05,5.542e-10,1.664e-04
+cla,32,low,7.890e-08,3.764e-08,2.006e-10,1.167e-07
+cla,32,random,5.944e-05,3.287e-05,2.430e-10,9.231e-05
+cla,32,high,7.790e-05,3.770e-05,2.416e-10,1.156e-04
+csla,32,low,9.405e-08,8.447e-08,1.002e-09,1.795e-07
+csla,32,random,1.319e-04,9.794e-05,8.051e-10,2.299e-04
+csla,32,high,6.430e-05,3.139e-05,8.900e-10,9.569e-05

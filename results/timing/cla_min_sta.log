@@ -1,0 +1,29 @@
+Startpoint: cin (input port clocked by virtual_clk)
+Endpoint: sum[0] (output port clocked by virtual_clk)
+Path Group: virtual_clk
+Path Type: min
+
+     Cap     Slew    Delay     Time   Description
+---------------------------------------------------------------------------
+            0.000    0.000    0.000   clock virtual_clk (rise edge)
+                     0.000    0.000   clock network delay (ideal)
+                     0.000    0.000 ^ input external delay
+   0.008    0.000    0.000    0.000 ^ cin (in)
+            0.000    0.000    0.000 ^ block0/_33_/A (sky130_fd_sc_hd__xnor2_1)
+   0.000    0.017    0.031    0.031 v block0/_33_/Y (sky130_fd_sc_hd__xnor2_1)
+            0.017    0.000    0.031 v sum[0] (out)
+                              0.031   data arrival time
+
+            0.000    0.000    0.000   clock virtual_clk (rise edge)
+                     0.000    0.000   clock network delay (ideal)
+                     0.000    0.000   clock reconvergence pessimism
+                     0.000    0.000   output external delay
+                              0.000   data required time
+---------------------------------------------------------------------------
+                              0.000   data required time
+                             -0.031   data arrival time
+---------------------------------------------------------------------------
+                              0.031   slack (MET)
+
+
+worst slack min 0.031

@@ -1,0 +1,4 @@
+architecture,width_bits,max_delay_ns,min_delay_ns,wns_ns
+rca,32,12.197,0.086,-2.197
+cla,32,10.486,0.031,-0.486
+csla,32,4.644,0.029,5.356

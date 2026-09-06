@@ -292,6 +292,69 @@ This section will be updated as the project develops.
 
 ## 11. Project Status
 
-**Current stage:** Repository initialized — architecture and experimental flow definition.
+**Current stage:** Baseline power characterization completed for the 32-bit RCA, CLA, and CSLA architectures.
 
-Measured results and conclusions will be added progressively as experiments are completed.
+The baseline study now includes:
+
+- Functional RTL verification
+- RTL switching-activity generation
+- Sky130 gate-level synthesis
+- Area characterization
+- Static timing analysis
+- Gate-level VCD generation
+- VCD-annotated OpenSTA power analysis
+- Low, random, and high switching workloads
+- Recorded baseline power results
+
+The next stage is to analyze the measured power, timing, and area trade-offs before any architectural optimization.
+
+---
+
+## 12. Baseline Power Characterization
+
+Baseline power was measured at the synthesized gate level using OpenSTA with simulation-generated VCD switching activity.
+
+Measurement conditions:
+
+- Technology: Sky130 HD
+- Process: TT
+- Temperature: 0.25°C
+- Voltage: 1.80 V
+- Adder width: 32 bits
+- Power analysis: OpenSTA
+- Activity source: gate-level VCD
+- Measurement window: 100,000 ps to 1,110,000 ps
+- Workloads: low, random, high switching activity
+
+### 12.1 Measured Power
+
+| Architecture | Workload | Internal Power (W) | Switching Power (W) | Leakage Power (W) | Total Power (W) |
+|---|---|---:|---:|---:|---:|
+| RCA | Low | 1.157e-07 | 3.246e-08 | 4.611e-10 | 1.486e-07 |
+| RCA | Random | 6.932e-05 | 1.560e-05 | 5.537e-10 | 8.492e-05 |
+| RCA | High | 1.356e-04 | 3.085e-05 | 5.542e-10 | 1.664e-04 |
+| CLA | Low | 7.890e-08 | 3.764e-08 | 2.006e-10 | 1.167e-07 |
+| CLA | Random | 5.944e-05 | 3.287e-05 | 2.430e-10 | 9.231e-05 |
+| CLA | High | 7.790e-05 | 3.770e-05 | 2.416e-10 | 1.156e-04 |
+| CSLA | Low | 9.405e-08 | 8.447e-08 | 1.002e-09 | 1.795e-07 |
+| CSLA | Random | 1.319e-04 | 9.794e-05 | 8.051e-10 | 2.299e-04 |
+| CSLA | High | 6.430e-05 | 3.139e-05 | 8.900e-10 | 9.569e-05 |
+
+### 12.2 Initial Characterization
+
+The measured results show workload-dependent power behavior rather than a single architecture being optimal under all conditions.
+
+- Under low switching activity, CLA has the lowest total power.
+- Under random switching activity, RCA has the lowest total power.
+- Under high switching activity, CSLA has the lowest total power.
+- Leakage power is negligible compared with dynamic power for all measured cases.
+- CSLA shows the highest total power under the random workload.
+- The measured power values are based on the common workload window and identical measurement methodology across architectures.
+
+These observations are baseline characterization results. No architectural optimization has been performed.
+
+The detailed machine-readable results are stored in:
+
+```text
+results/power/power_baseline.csv
+```

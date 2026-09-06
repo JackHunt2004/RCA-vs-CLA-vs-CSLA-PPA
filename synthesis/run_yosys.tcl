@@ -1,9 +1,9 @@
 # Generic Yosys synthesis flow
 # Sky130 HD TT 0.25C 1.80V
 
-read_verilog -Irtl $::env(RTL_SOURCES)
+read_verilog -Irtl __RTL_SOURCES__
 
-hierarchy -top $::env(TOP_MODULE)
+hierarchy -top __TOP_MODULE__
 
 proc
 memory
@@ -12,13 +12,13 @@ opt
 techmap
 opt
 
-dfflibmap -liberty $::env(SKY130_LIB)
-abc -liberty $::env(SKY130_LIB)
+dfflibmap -liberty __SKY130_LIB__
+abc -liberty __SKY130_LIB__
 
 opt
 
-stat -liberty $::env(SKY130_LIB)
+stat -liberty __SKY130_LIB__
 
 check
 
-write_verilog -noattr $::env(NETLIST_OUT)
+write_verilog -noattr __NETLIST_OUT__

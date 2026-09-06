@@ -1,0 +1,91 @@
+Startpoint: cin (input port clocked by virtual_clk)
+Endpoint: sum[31] (output port clocked by virtual_clk)
+Path Group: virtual_clk
+Path Type: max
+
+     Cap     Slew    Delay     Time   Description
+---------------------------------------------------------------------------
+            0.000    0.000    0.000   clock virtual_clk (rise edge)
+                     0.000    0.000   clock network delay (ideal)
+                     0.000    0.000 v input external delay
+   0.007    0.000    0.000    0.000 v cin (in)
+            0.000    0.000    0.000 v block0/_22_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.370    0.370 v block0/_22_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    0.370 v block0/_23_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    0.761 v block0/_23_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    0.761 v block0/_24_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    1.153 v block0/_24_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    1.153 v block0/_25_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    1.545 v block0/_25_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    1.545 v block0/_26_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    1.937 v block0/_26_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    1.937 v block0/_27_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.092    0.392    2.330 v block0/_27_/X (sky130_fd_sc_hd__maj3_1)
+            0.092    0.000    2.330 v block0/_30_/A (sky130_fd_sc_hd__nand3_1)
+   0.004    0.072    0.091    2.421 ^ block0/_30_/Y (sky130_fd_sc_hd__nand3_1)
+            0.072    0.000    2.421 ^ block0/_32_/A2 (sky130_fd_sc_hd__a31oi_1)
+   0.007    0.096    0.112    2.533 v block0/_32_/Y (sky130_fd_sc_hd__a31oi_1)
+            0.096    0.000    2.533 v block1/_22_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.393    2.927 v block1/_22_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    2.927 v block1/_23_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    3.319 v block1/_23_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    3.319 v block1/_24_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    3.710 v block1/_24_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    3.710 v block1/_25_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    4.102 v block1/_25_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    4.102 v block1/_26_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    4.494 v block1/_26_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    4.494 v block1/_27_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.092    0.392    4.887 v block1/_27_/X (sky130_fd_sc_hd__maj3_1)
+            0.092    0.000    4.887 v block1/_30_/A (sky130_fd_sc_hd__nand3_1)
+   0.004    0.072    0.091    4.978 ^ block1/_30_/Y (sky130_fd_sc_hd__nand3_1)
+            0.072    0.000    4.978 ^ block1/_32_/A2 (sky130_fd_sc_hd__a31oi_1)
+   0.007    0.096    0.112    5.090 v block1/_32_/Y (sky130_fd_sc_hd__a31oi_1)
+            0.096    0.000    5.090 v block2/_22_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.393    5.484 v block2/_22_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    5.484 v block2/_23_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    5.876 v block2/_23_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    5.876 v block2/_24_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    6.268 v block2/_24_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    6.268 v block2/_25_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    6.659 v block2/_25_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    6.659 v block2/_26_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    7.051 v block2/_26_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    7.051 v block2/_27_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.092    0.392    7.444 v block2/_27_/X (sky130_fd_sc_hd__maj3_1)
+            0.092    0.000    7.444 v block2/_30_/A (sky130_fd_sc_hd__nand3_1)
+   0.004    0.072    0.091    7.535 ^ block2/_30_/Y (sky130_fd_sc_hd__nand3_1)
+            0.072    0.000    7.535 ^ block2/_32_/A2 (sky130_fd_sc_hd__a31oi_1)
+   0.007    0.096    0.112    7.647 v block2/_32_/Y (sky130_fd_sc_hd__a31oi_1)
+            0.096    0.000    7.647 v block3/_22_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.393    8.041 v block3/_22_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    8.041 v block3/_23_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    8.433 v block3/_23_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    8.433 v block3/_24_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    8.825 v block3/_24_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    8.825 v block3/_25_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    9.217 v block3/_25_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    9.217 v block3/_26_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.091    0.392    9.608 v block3/_26_/X (sky130_fd_sc_hd__maj3_1)
+            0.091    0.000    9.608 v block3/_27_/C (sky130_fd_sc_hd__maj3_1)
+   0.007    0.092    0.392   10.001 v block3/_27_/X (sky130_fd_sc_hd__maj3_1)
+            0.092    0.000   10.001 v block3/_47_/C (sky130_fd_sc_hd__maj3_1)
+   0.004    0.076    0.372   10.373 v block3/_47_/X (sky130_fd_sc_hd__maj3_1)
+            0.076    0.000   10.373 v block3/_48_/B (sky130_fd_sc_hd__xnor2_1)
+   0.000    0.026    0.113   10.486 v block3/_48_/Y (sky130_fd_sc_hd__xnor2_1)
+            0.026    0.000   10.486 v sum[31] (out)
+                             10.486   data arrival time
+
+            0.000   10.000   10.000   clock virtual_clk (rise edge)
+                     0.000   10.000   clock network delay (ideal)
+                     0.000   10.000   clock reconvergence pessimism
+                     0.000   10.000   output external delay
+                             10.000   data required time
+---------------------------------------------------------------------------
+                             10.000   data required time
+                            -10.486   data arrival time
+---------------------------------------------------------------------------
+                             -0.486   slack (VIOLATED)
+
+
+worst slack max -0.486
