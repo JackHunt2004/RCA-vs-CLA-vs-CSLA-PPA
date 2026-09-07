@@ -24,8 +24,13 @@ case "$ARCH" in
         NETLIST_IN="$RESULTS_DIR/area/csla_32_synth.v"
         VCD_SCOPE="csla_gate_tb/dut"
         ;;
+        csla_opt1)
+        TOP_MODULE="csla_32_opt1"
+        NETLIST_IN="$RESULTS_DIR/area/csla_opt1_32_synth.v"
+        VCD_SCOPE="csla_opt1_gate_tb/dut"
+        ;;
     *)
-        echo "Usage: $0 {rca|cla|csla} {low|random|high}"
+        echo "Usage: $0 {rca|cla|csla|csla_opt1} {low|random|high}"
         exit 1
         ;;
 esac

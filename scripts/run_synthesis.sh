@@ -20,8 +20,13 @@ case "$ARCH" in
         TOP_MODULE="csla_32"
         RTL_SOURCES="$RTL_DIR/csla/csla_32.v"
         ;;
+    csla_opt1)
+        TOP_MODULE="csla_32_opt1"
+        RTL_SOURCES="$RTL_DIR/csla/csla_32_opt1.v"
+        ;;
+
     *)
-        echo "Usage: $0 {rca|cla|csla}"
+        echo "Usage: $0 {rca|cla|csla|csla_opt1}"
         exit 1
         ;;
 esac
