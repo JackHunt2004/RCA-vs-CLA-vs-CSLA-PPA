@@ -476,3 +476,127 @@ The measured baseline implementations establish three distinct design points:
 Therefore, the baseline measurements do not identify a universal winner. Architecture selection depends on the relative importance of timing, area, and expected switching activity.
 
 These conclusions apply to the measured 32-bit implementations under the defined Sky130 HD, TT, 0.25°C, 1.80 V methodology. They should not be generalized beyond the studied implementation and measurement conditions without further experiments.
+
+---
+
+## 15. Controlled Optimization
+
+After completing and validating the baseline characterization, controlled optimization was performed on the CSLA architecture. The optimization objective was to reduce power and area while preserving the primary timing requirement:
+
+- Maximum delay must remain ≤ 10 ns.
+- The 32-bit interface must remain unchanged.
+- The fundamental CSLA carry-select architecture must be preserved.
+- The same switching workloads and measurement methodology must be used.
+- Optimization decisions must be based on measured PPA results.
+
+Two controlled CSLA variants were evaluated.
+
+### 15.1 OPT1 — 8 × 4-bit CSLA Partition
+
+The first optimization divided the 32-bit CSLA into eight 4-bit carry-select blocks instead of the baseline four 8-bit blocks.
+
+The carry-select principle was preserved: the first block used the actual input carry, while subsequent blocks evaluated both possible carry-in values and selected the appropriate result.
+
+The hypothesis was that smaller speculative arithmetic blocks could reduce the cost of duplicated arithmetic.
+
+Measured results:
+
+| Metric | Baseline CSLA | OPT1 | Change |
+|---|---:|---:|---:|
+| Cell count | 321 | 380 | +18.4% |
+| Area | 2499.8976 | 2657.5488 | +6.3% |
+| Maximum delay | 4.644 ns | 4.450 ns | -4.2% |
+| WNS @ 10 ns | +5.356 ns | +5.550 ns | +0.194 ns |
+| Low power | 0.1795 µW | 0.1682 µW | -6.3% |
+| Random power | 229.9 µW | 250.1 µW | +8.8% |
+| High power | 95.69 µW | 94.34 µW | -1.4% |
+
+Although OPT1 improved timing slightly, it increased area and random-workload power.
+
+The finer partition also increased the number of carry-selection boundaries from three to seven, increasing selection overhead. Therefore, OPT1 was rejected as a PPA optimization.
+
+### 15.2 OPT2 — Shared Arithmetic CSLA
+
+The second optimization retained the original four 8-bit CSLA partition and targeted the duplicated arithmetic itself.
+
+For each speculative block, the carry-in=0 result was computed as:
+
+`A + B`
+
+The carry-in=1 result was then derived by incrementing that result:
+
+`(A + B) + 1`
+
+This preserves the original carry-select structure and the three selection boundaries while avoiding independent computation of both arithmetic results.
+
+The synthesized design retained the same 27 carry-selection mux cells as the baseline CSLA.
+
+Measured results:
+
+| Metric | Baseline CSLA | OPT2 | Change |
+|---|---:|---:|---:|
+| Cell count | 321 | 206 | -35.8% |
+| Area | 2499.8976 | 1595.2800 | -36.2% |
+| Maximum delay | 4.644 ns | 4.857 ns | +4.6% |
+| WNS @ 10 ns | +5.356 ns | +5.143 ns | -0.213 ns |
+| Low power | 0.1795 µW | 0.1792 µW | -0.2% |
+| Random power | 229.9 µW | 153.9 µW | -33.1% |
+| High power | 95.69 µW | 95.69 µW | ~0% |
+
+OPT2 continues to satisfy the 10 ns timing requirement with 5.143 ns of positive slack.
+
+The principal improvement is observed under random switching, where total power decreases by approximately 33.1%. Area also decreases by approximately 36.2%, while the maximum delay increases by only 4.6%.
+
+### 15.3 Optimization Comparison
+
+The two optimization experiments demonstrate that reducing block size alone is not sufficient to improve CSLA PPA.
+
+OPT1 increased the number of selection boundaries and consequently increased selection overhead. In contrast, OPT2 preserved the four-block structure and directly reduced duplicated arithmetic.
+
+| Variant | Area | Random Power | Delay | Timing Constraint | Decision |
+|---|---:|---:|---:|---:|---|
+| Baseline CSLA | 2499.8976 | 229.9 µW | 4.644 ns | PASS | Reference |
+| OPT1 | 2657.5488 | 250.1 µW | 4.450 ns | PASS | Rejected |
+| OPT2 | 1595.2800 | 153.9 µW | 4.857 ns | PASS | **Selected** |
+
+OPT2 provides the best overall measured improvement among the evaluated CSLA implementations.
+
+### 15.4 Selected Optimization
+
+OPT2 is selected as the final optimized CSLA implementation for this study.
+
+Relative to the baseline CSLA, the selected optimization achieves:
+
+- **36.2% lower area**
+- **35.8% fewer synthesized cells**
+- **33.1% lower random-workload total power**
+- Approximately unchanged low-workload power
+- Approximately unchanged high-workload power
+- **4.6% increase in maximum delay**
+- Timing target remains satisfied with **+5.143 ns WNS**
+
+The result demonstrates that a substantial reduction in duplicated arithmetic can improve both area and workload-dependent dynamic power without sacrificing the primary timing requirement.
+
+The optimization therefore supports the architectural conclusion that, for this implementation and methodology, reducing redundant arithmetic within the CSLA structure is more effective than simply increasing the number of smaller carry-select blocks.
+
+---
+
+## 16. Final Study Status
+
+The study has completed baseline characterization and controlled optimization of the three 32-bit adder architectures.
+
+Current status:
+
+- RTL architecture and functional verification: **Complete**
+- RTL switching-activity characterization: **Complete**
+- Synthesis flow validation: **Complete**
+- Area characterization: **Complete**
+- Static timing analysis: **Complete**
+- Power analysis infrastructure: **Complete**
+- Baseline power characterization: **Complete**
+- Baseline PPA comparison: **Complete**
+- Architectural analysis: **Complete**
+- Controlled optimization: **Complete**
+- Final study and documentation: **In progress**
+
+The final comparison and conclusions will use the measured RCA, CLA, baseline CSLA, and selected OPT2 results under the defined Sky130 HD TT 0.25°C, 1.80 V methodology.
