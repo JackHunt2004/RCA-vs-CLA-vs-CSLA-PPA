@@ -600,3 +600,136 @@ Current status:
 - Final study and documentation: **In progress**
 
 The final comparison and conclusions will use the measured RCA, CLA, baseline CSLA, and selected OPT2 results under the defined Sky130 HD TT 0.25°C, 1.80 V methodology.
+
+---
+
+## 17. Final PPA Comparison
+
+The final study compares the three baseline architectures together with the two controlled CSLA optimization variants. All measurements use the same 32-bit interface, synthesis flow, timing constraint, switching workloads, and Sky130 HD TT 0.25°C, 1.80 V technology conditions.
+
+### 17.1 Final Measured Results
+
+| Architecture | Cell Count |      Area | Max Delay (ns) | WNS (ns) | Low Power (µW) | Random Power (µW) | High Power (µW) | 10 ns Timing |
+| ------------ | ---------: | --------: | -------------: | -------: | -------------: | ----------------: | --------------: | ------------ |
+| RCA          |         64 | 1081.0368 |         12.197 |   -2.197 |         0.1486 |             84.92 |           166.4 | FAIL         |
+| CLA          |        116 |  920.8832 |         10.486 |   -0.486 |         0.1167 |             92.31 |           115.6 | FAIL         |
+| CSLA         |        321 | 2499.8976 |          4.644 |   +5.356 |         0.1795 |             229.9 |           95.69 | PASS         |
+| CSLA OPT1    |        380 | 2657.5488 |          4.450 |   +5.550 |         0.1682 |             250.1 |           94.34 | PASS         |
+| CSLA OPT2    |        206 | 1595.2800 |          4.857 |   +5.143 |         0.1792 |             153.9 |           95.69 | PASS         |
+
+The machine-readable final comparison is stored in:
+
+```text
+results/ppa_final.csv
+```
+
+### 17.2 Area and Timing
+
+CLA has the lowest measured area at 920.8832, followed by RCA at 1081.0368. The baseline CSLA has the largest area at 2499.8976.
+
+CSLA OPT2 reduces the baseline CSLA area to 1595.2800, corresponding to a 36.2% reduction. It also reduces the synthesized cell count from 321 to 206.
+
+RCA and CLA do not satisfy the 10 ns timing requirement. Their measured maximum delays are 12.197 ns and 10.486 ns respectively.
+
+All three CSLA implementations satisfy the timing requirement. OPT1 provides the shortest measured delay at 4.450 ns, while OPT2 measures 4.857 ns and retains 5.143 ns of positive slack.
+
+Thus, OPT2 accepts a modest timing penalty relative to the baseline CSLA while retaining substantial timing margin.
+
+### 17.3 Workload-Dependent Power
+
+The final power measurements confirm that the power ranking depends on switching activity.
+
+Under low switching activity, CLA has the lowest measured total power at 0.1167 µW. OPT2 measures 0.1792 µW, essentially unchanged from the baseline CSLA value of 0.1795 µW.
+
+Under random switching activity, RCA has the lowest measured total power at 84.92 µW. OPT2 reduces the baseline CSLA random-workload power from 229.9 µW to 153.9 µW, corresponding to a 33.1% reduction.
+
+Under high switching activity, OPT1 has the lowest measured total power at 94.34 µW. The baseline CSLA and OPT2 both measure 95.69 µW.
+
+The results therefore do not identify one architecture as the lowest-power design under every workload.
+
+### 17.4 Normalized Final Comparison
+
+The following values are normalized independently to the best measured value for each metric:
+
+| Architecture |  Area | Delay | Low Power | Random Power | High Power |
+| ------------ | ----: | ----: | --------: | -----------: | ---------: |
+| RCA          | 1.17x | 2.74x |     1.27x |        1.00x |      1.76x |
+| CLA          | 1.00x | 2.36x |     1.00x |        1.09x |      1.23x |
+| CSLA         | 2.71x | 1.04x |     1.54x |        2.71x |      1.01x |
+| CSLA OPT1    | 2.89x | 1.00x |     1.44x |        2.95x |      1.00x |
+| CSLA OPT2    | 1.73x | 1.09x |     1.54x |        1.81x |      1.01x |
+
+The normalized comparison reinforces the architectural trade-offs observed throughout the study. CLA remains the smallest design, RCA remains the lowest-power design under random switching, and the CSLA variants provide the strongest timing performance.
+
+OPT2 improves the CSLA design point substantially without attempting to make it universally superior to RCA or CLA.
+
+---
+
+## 18. Final Conclusions
+
+This study evaluated 32-bit Ripple-Carry Adder, Carry-Lookahead Adder, and Carry-Select Adder architectures using a common ASIC characterization flow based on Sky130 HD standard cells.
+
+The baseline results demonstrate that the three architectures occupy distinct points in the area, timing, and power design space.
+
+**RCA** provides a relatively compact implementation and the lowest measured random-workload power. However, its sequential carry propagation results in the longest measured delay of 12.197 ns, causing it to fail the 10 ns timing requirement.
+
+**CLA** provides the lowest measured area and lowest low-switching power. Its lookahead structure improves timing relative to RCA, but the measured delay of 10.486 ns still exceeds the 10 ns target by 0.486 ns.
+
+**CSLA** provides a substantially shorter critical-path delay. The baseline CSLA achieves 4.644 ns maximum delay and +5.356 ns WNS, making it the only baseline architecture that satisfies the 10 ns timing requirement. This timing advantage comes with significantly higher area and workload-dependent power.
+
+The controlled optimization experiments show that changing architectural structure does not automatically produce a better PPA trade-off.
+
+OPT1 changed the CSLA partition from four 8-bit blocks to eight 4-bit blocks. Although this reduced maximum delay by 4.2%, it increased area by 6.3% and random-workload power by 8.8%. The increased number of carry-selection boundaries introduced additional selection overhead, so OPT1 was rejected.
+
+OPT2 retained the four 8-bit CSLA organization and instead targeted duplicated arithmetic. The carry-in=0 result was computed as `A + B`, while the carry-in=1 result was derived by incrementing that result.
+
+This optimization reduced synthesized cell count by 35.8% and area by 36.2% relative to the baseline CSLA. Random-workload power was reduced by 33.1%. Maximum delay increased by 4.6%, from 4.644 ns to 4.857 ns, but the timing requirement remained comfortably satisfied with +5.143 ns WNS.
+
+Therefore, **CSLA OPT2 is selected as the final optimized CSLA implementation**.
+
+The selection of OPT2 does not imply that it is the universal PPA winner across all five measured designs. Instead, it represents the most successful controlled optimization of the CSLA architecture within the defined constraints.
+
+The overall architectural conclusions are:
+
+* **CLA** is the best measured baseline design for minimum area.
+* **CLA** is also the best measured baseline design for low switching activity.
+* **RCA** provides the lowest measured random-workload power, but fails the 10 ns timing requirement.
+* **CSLA** provides the strongest baseline timing performance and is the only baseline architecture that satisfies the 10 ns target.
+* **CSLA OPT2** substantially improves the baseline CSLA area and random-workload power while retaining its timing advantage.
+* Power rankings change with switching activity, demonstrating the importance of workload-aware power characterization.
+* Structural optimization must be evaluated through measured PPA rather than assumed from RTL structure alone.
+
+The study therefore demonstrates that there is no universal winner across area, timing, and workload-dependent power. The appropriate architecture depends on the primary design constraint and expected operating behavior.
+
+These conclusions are specific to the studied 32-bit implementations, Sky130 HD TT 0.25°C, 1.80 V conditions, 10 ns timing reference, synthesis methodology, and defined switching workloads. They should not be generalized to other technologies, widths, libraries, physical-design conditions, or workloads without additional characterization.
+
+The study is complete for the defined experimental scope.
+
+---
+
+## 19. Project Completion Status
+
+All planned stages within the defined study scope are complete:
+
+* RTL architecture and functional verification: **Complete**
+* RTL switching-activity characterization: **Complete**
+* Synthesis flow validation: **Complete**
+* Area characterization: **Complete**
+* Static timing analysis: **Complete**
+* Power analysis infrastructure: **Complete**
+* Baseline power characterization: **Complete**
+* Baseline PPA comparison: **Complete**
+* Architectural analysis: **Complete**
+* Controlled optimization: **Complete**
+* Final PPA comparison: **Complete**
+* Final conclusions and documentation: **Complete**
+
+The final optimized CSLA implementation is **CSLA OPT2**.
+
+The complete machine-readable PPA dataset is stored in:
+
+```text
+results/ppa_final.csv
+```
+
+The project remains intentionally scoped to the validated 32-bit study and does not claim universal architectural optimality beyond the defined measurement methodology.
